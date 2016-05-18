@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>收信人</title>
+
+<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+<link rel="stylesheet" type="text/css" href="css/font/iconfont.css"/>
+<link rel="stylesheet" type="text/css" href="css/mycss.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="my_all">
+
+    <!--左侧全部人员-->
+    <div class="staff_all">
+        <div class="jiantou"></div>
+        <div class="dingwei">
+            <!--搜索-->
+            <div class="search"><i class="iconfont icon-sousuo"></i><input type="text" value="" placeholder="搜索姓名" /></div>
+            <!--全部人员-->
+            <ul class="staff_ul">
+                <li pid="1" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />张三（14602368）</label></li>
+                <li pid="2" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />张三张三张三张三张三张三张三张三张三张三张三张三张三张三（14602368）</label></li>
+                <li pid="3" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />张三（14602368）</label></li>
+                <li pid="4" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />张三（14602368）</label></li>
+                <li pid="5" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />张三（14602368）</label></li>
+                <li pid="6" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />李四（14602368）</label></li>
+                <li pid="7" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />张三（14602368）</label></li>
+                <li pid="8" college="教育学院"><label><input class="inp mychkboxe" name="" type="checkbox" value="" />李四（14602368）</label></li>
+            </ul>
+            <!--分页和全选-->
+            <div class="footer">
+                <div class="quanxuan"><label><input class="inp mychkboxAlle" name="" type="checkbox" value="" />全选</label></div>
+                <div class="fenye">
+                    <div>
+                        <a href="#" class="previous pag_li disabled" data-action="previous"><i class="iconfont icon-navigatebefore icon_zt"></i></a>
+                        <div class="pag_con">
+                            <input class="pag_con_input" type="text" value="1">
+                            <span class="pag_xue">／</span>
+                            <span class="pag_zong">5</span>
+                        </div>
+                        <a href="#" class="next pag_li" data-action="next"><i class="iconfont icon-navigatenext icon_zt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧已选定人员-->
+    <div class="staff_selected">
+        <div class="tit">已选收信人</div>
+        <ul class="staff_sel">
+            <li><div class="names">张三（14602368）</div><div class="education">教育学院</div><div class="delete">删除</div></li>
+            <li><div class="names">李四（14602368）</div><div class="education">计算机学院</div><div class="delete">删除</div></li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+
+
+$(".quanxuan").click(function(){
+        if($(".mychkboxAlle",this).is(':checked')){
+             $(".staff_ul li").each(function(){
+                 $(".mychkboxe",this).prop("checked", true);/*如果不能全选就是.prop不兼容这个js包,换下就可以了*/
+            });
+        }else{
+            $(".staff_ul li").each(function(){
+                $(".mychkboxe",this).prop("checked", false);
+            });
+        }
+    });
+    var total = $(".mychkboxe").length;
+    $(".mychkboxe").click(function(){
+        if($(this).is(':checked')){
+            var checktotal=0;
+            $(".mychkboxe").each(function(){
+                if($(this).is(':checked')) checktotal+=1;
+            });
+            if (total == checktotal) $(".mychkboxAlle").prop("checked", true);
+        }else{
+            $(".mychkboxAlle").each(function(){
+                $(this).prop("checked", false);
+            });
+        }
+    });
+/*全选*/
+   
+
+
+
+/*
+$(".quanxuan").click(function(){
+    if($(".mychkboxAlle",this).is(':checked')){
+        $(".staff_ul li").each(function(){
+            $(".mychkboxe",this).prop("checked", true);
+        });
+    }else{
+        $(".staff_ul li").each(function(){
+            $(".mychkboxe",this).prop("checked", false);
+        });
+    }
+});
+var total = $(".mychkboxe").length;
+$(".mychkboxe").click(function(){
+
+
+    var $this = $this.parent();
+    var html='<li pid="'+ $this.parent().attr(pid) +'"><div class="names">张三（14602368）</div><div class="education">教育学院</div><div class="delete">删除</div></li>';
+
+    $("ul.staff_ul li").append(html);
+
+    if($(this).is(':checked')){
+        var checktotal=0;
+        $(".mychkboxe").each(function(){
+            if($(this).is(':checked')) checktotal+=1;
+        });
+        if (total == checktotal) $(".mychkboxAlle").prop("checked", true);
+    }else{
+        $(".mychkboxAlle").each(function(){
+            $(this).prop("checked", false);
+        });
+    }
+});*/
+    /* 鼠标移到li,删除就出现 */
+    $("ul.staff_sel li").mouseover(function(){
+        $(".delete",this).show();
+    });
+    $("ul.staff_sel li").mouseout(function(){
+        $(".delete",this).hide();
+    })
+
+    /*点击删除就删除这一行*/
+    $(".delete").click(function(){
+        $(this).parent().hide();
+    })
+
+    /*$(function(){
+        $("ul.staff_ul li").each(function(index,item){
+            $(item).bind("click",function(){
+                $("ul.staff_sel li").append($(this).text());
+            });
+        });
+    });*/
+</script>
+
+</body>
+</html>
